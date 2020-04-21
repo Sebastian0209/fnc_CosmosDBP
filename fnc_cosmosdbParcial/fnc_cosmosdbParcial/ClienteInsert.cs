@@ -10,33 +10,52 @@ namespace fnc_cosmosdbParcial
     using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
     using Models;
+    using Helpers;
+
     public class ClienteInsert
     {
         [FunctionName(nameof(ClienteInsert))]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
+            [CosmosDB(
+ 
+                        databaseName:Constants.COSMOS_DB_DATABASE_NAME,
+                        collectionName: Constants.COSMOS_DB_CONTAINER_NAME,
+                        ConnectionStringSetting ="StrCosmosCliente"
+                        )] IAsyncCollector<object> clientes,
+
             ILogger log)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+            IActionResult returnValue = null;
 
-    
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            var data = JsonConvert.DeserializeObject<Cliente>(requestBody);
-            var cliente = new Cliente
+            try
             {
-                ClienteId = data.ClienteId,
-                Nombre = data.Nombre,
-                Nit = data.Nit,
-                Correo=data.Correo,
-                Celular=data.Celular,
-                Ubicacion=data.Ubicacion,
-                Fecha=data.Fecha
 
-            };
+                string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+                var data = JsonConvert.DeserializeObject<Cliente>(requestBody);
+                var cliente = new Cliente
+                {
+                    ClienteId = data.ClienteId,
+                    Nombre = data.Nombre,
+                    Nit = data.Nit,
+                    Correo = data.Correo,
+                    Celular = data.Celular,
+                    Ubicacion = data.Ubicacion,
+                    Fecha = data.Fecha
 
-            string responseMessage = cliente.Nombre; 
+                };
+                await clientes.AddAsync(cliente);
+                log.LogInformation($"Cliente Insertado {cliente.Nombre}");
+                returnValue = new OkObjectResult(cliente);
+            }
 
-            return new OkObjectResult(responseMessage);
+            catch(Exception ex)
+            {
+                log.LogError($"No se inserto el cliente.Exception:{ex.Message}");
+                returnValue = new StatusCodeResult(StatusCodes.Status500InternalServerError);
+
+            }
+            return returnValue;
         }
     }
 }
