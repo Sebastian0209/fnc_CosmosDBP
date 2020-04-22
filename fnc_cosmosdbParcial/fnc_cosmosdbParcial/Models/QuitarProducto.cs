@@ -4,12 +4,12 @@
     public class QuitarProducto
     {
         [JsonProperty("id")]
-        public int QuitarProductoId { get; set; }
+        public string QuitarProductoId { get; set; }
         [JsonProperty("producto")]
         public string Producto { get; set; }
         [JsonProperty("cantidad")]
-        public int Cantidad { get; set; }
+        public string Cantidad { get; set; }
         [JsonProperty("estado")]
-        public bool Estado { get; set; }
+        public string Estado { get; set; }
     }
 }

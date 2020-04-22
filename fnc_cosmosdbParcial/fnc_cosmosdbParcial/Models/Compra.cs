@@ -6,11 +6,11 @@ namespace fnc_cosmosdbParcial.Models
     public class Compra
     {
         [JsonProperty("id")]
-        public int CompraId { get; set; }
+        public string CompraId { get; set; }
         [JsonProperty("nombre")]
         public string Nombre { get; set; }
         [JsonProperty("nit")]
-        public int Nit { get; set; }
+        public string Nit { get; set; }
         [JsonProperty("descripcion")]
         public string Descripcion { get; set; }
         [JsonProperty("ubicacion")]

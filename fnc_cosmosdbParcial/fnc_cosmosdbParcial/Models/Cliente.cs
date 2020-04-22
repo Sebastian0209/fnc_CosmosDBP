@@ -6,18 +6,18 @@ namespace fnc_cosmosdbParcial.Models
     public class Cliente
     {
         [JsonProperty("id")]
-        public int ClienteId { get; set; }
+        public string ClienteId { get; set; }
         [JsonProperty("nombre")]
         public string Nombre { get; set; }
         [JsonProperty("nit")]
-        public int Nit { get; set; }
+        public string Nit { get; set; }
         [JsonProperty("correo")]
         public string Correo { get; set; }
         [JsonProperty("celular")]
-        public int Celular { get; set; }
+        public string Celular { get; set; }
         [JsonProperty("ubicacion")]
         public string Ubicacion { get; set; }
-        [JsonProperty("fecha de creacion")]
+        [JsonProperty("fecha")]
         public string Fecha { get; set; }
 
 

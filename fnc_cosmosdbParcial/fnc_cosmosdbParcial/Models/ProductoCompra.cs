@@ -4,11 +4,11 @@
     public class ProductoCompra
     {
         [JsonProperty("id")]
-        public int ProductoCompraId { get; set; }
+        public string ProductoCompraId { get; set; }
         [JsonProperty("producto")]
         public string Producto { get; set; }
         [JsonProperty("cantidad")]
-        public int Cantidad { get; set; }
+        public string Cantidad { get; set; }
         
     }
 }

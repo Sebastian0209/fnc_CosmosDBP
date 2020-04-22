@@ -12,7 +12,7 @@ namespace fnc_cosmosdbParcial
     using Models;
     using Helpers;
 
-    public class ClienteInsert
+    public static class ClienteInsert
     {
         [FunctionName(nameof(ClienteInsert))]
         public static async Task<IActionResult> Run(
